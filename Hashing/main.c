@@ -83,5 +83,15 @@ void display() {
 
 
 int search(int key) {
+    int index = hashFunction(key); //call the hashFunction for the key you're searching for. This will return the index the key is located at.
+    Node* temp = hashTable[index]; // assign a temp Node pointer to preserve data.
 
+    //traverse the linked list at the index that was calculated from the hashFunction for the searched key.
+    while (temp != NULL) { //if nothing is at the index, temp == NULL and will exit with -1 return.
+        if(temp->key == key) {
+            return temp->value;
+        }
+        temp = temp->next; //move to the next node by assigning temp to the next node in the linked list.
+    }
+    return -1; //nothing found for the given key. Return -1.
 }
