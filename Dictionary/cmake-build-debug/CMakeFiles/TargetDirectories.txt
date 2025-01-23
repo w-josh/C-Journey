@@ -1,0 +1,3 @@
+/Users/josh/CLionProjects/Dictionary/cmake-build-debug/CMakeFiles/Dictionary.dir
+/Users/josh/CLionProjects/Dictionary/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/josh/CLionProjects/Dictionary/cmake-build-debug/CMakeFiles/rebuild_cache.dir
