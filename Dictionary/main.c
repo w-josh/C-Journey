@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const int WORD_LENGTH = 30;
+#define WORD_LENGTH 30
 
 struct dict {
     struct dict *left, *right;
@@ -44,7 +44,7 @@ void Search(char term[]) {
             found = true;
         }
         else {
-            printf("definition:", current->definition);
+            printf("definition: %s", current->definition);
             found = true;
         }
     }
@@ -86,7 +86,7 @@ void Insert(dictionary* temp) {
 
     if (Compare(temp->word, parent->word) == 1) {
         parent->right = temp;
-        printf("\nWord %s inserted to the right of %s", temp->word, parent->word);
+        printf("\nWord %s inserted to the  %s", temp->word, parent->word);
     }
     else {
         parent->left = temp;
@@ -95,38 +95,52 @@ void Insert(dictionary* temp) {
 
 }
 
-void View();
+void View(dictionary *ptr) { //recursive view
+    if (Root == NULL) {
+        printf("\nDictionary is empty.");
+    }
+    else {
+        if (ptr != NULL) {
+            View(ptr->left);
+            printf("\nWord: %s", ptr->word);
+            printf("\nDefinition: %s", ptr->definition);
+            View(ptr->right);
+        }
+    }
+}
 
 
 
 int main(void) {
 
     int choice;
+    dictionary *temp;
 
     while (choice != 4) {
 
-
-        printf("--Choose an option--\n1 - Insert\n2 - Search\n 3 - View\n 4 - Quit");
+        printf("\n--Choose an option--\n1 - Insert\n2 - Search\n 3 - View\n 4 - Quit");
         scanf("%d", &choice);
         switch (choice) {
             case 1:
-                dictionary *temp = (dictionary *)malloc(sizeof(dictionary));
+                temp = (dictionary *)malloc(sizeof(dictionary));
             temp->left = NULL;
             temp->right = NULL;
             printf("Enter Word or Term: ");
             scanf("%s", temp->word);
             printf("Enter Definition: ");
             scanf("%s", temp->definition);
-                Insert(temp); break;
-            case 2:
+                Insert(temp);
+            break;
+            case 2: {
                 char term[WORD_LENGTH];
-                printf("Enter Word or Term to Insert: ");
+                printf("Enter Word or Term to Search: ");
                 scanf("%s", term);
-                Search(term); break;
-            case 3: View(); break;
+                Search(term);
+            }
+            break;
+            case 3: View(Root); break;
             case 4: exit(0);
         }
     }
-
     return 0;
 }
